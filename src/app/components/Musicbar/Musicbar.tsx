@@ -130,7 +130,7 @@ export default function MusicBar() {
 
   return data ? (
     <ThemeProvider theme={theme}>
-      <div className="fixed bottom-[1%] z-40 ml-[16%] flex h-[7%] w-[83%] items-center justify-between rounded-md bg-gradient-to-r from-[#333333]  via-[#6b26ff75] to-[#333333] px-[2%] py-[0.5%] shadow-lg">
+      <div className="fixed bottom-[1%] z-40  flex h-[7%] w-[90%] items-center justify-between rounded-md bg-gradient-to-r from-[#333333]  via-[#6b26ff75] to-[#333333] px-[2%] py-[0.5%] shadow-lg">
         {/* 음악소스 */}
         <audio ref={audioRef} controls preload="auto" className="hidden">
           {!isLoading && <source src={data.track_url} type="audio/wav" />}
@@ -193,7 +193,7 @@ export default function MusicBar() {
           </div>
         </div>
         {/* 볼륨 조절 */}
-        <div className="flex w-[12%] min-w-[120px] items-center space-x-2">
+        <div className="flex w-[10%] min-w-[120px] items-center space-x-2">
           <VolumeDown color="primary" fontSize="medium" />
           <Slider
             aria-label="Volume"

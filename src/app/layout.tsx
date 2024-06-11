@@ -42,8 +42,10 @@ export default function RootLayout({
         <QueryProviders>
           <SharedAudioProvider>
             <NavigationBar />
-            <div className="main-content">{children}</div>
-            <MusicBar />
+            <div className="main-content">
+              {children}
+              <MusicBar />
+            </div>
           </SharedAudioProvider>
         </QueryProviders>
       </body>
