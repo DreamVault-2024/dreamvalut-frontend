@@ -130,7 +130,7 @@ export default function MusicBar() {
 
   return data ? (
     <ThemeProvider theme={theme}>
-      <div className="fixed bottom-[1%] z-40  flex h-[7%] w-[90%] items-center justify-between rounded-md bg-gradient-to-r from-[#333333]  via-[#6b26ff75] to-[#333333] px-[2%] py-[0.5%] shadow-lg">
+      <div className="fixed bottom-[1%] z-40 ml-[1%] flex h-[7%] min-h-[5rem] w-[88%] items-center justify-between rounded-md bg-gradient-to-r from-[#333333] via-[#6b26ff75] to-[#333333]  px-[2%] py-[0.5%] shadow-lg lg:w-[76%] xl:w-[80%] 2xl:w-[88%]">
         {/* 음악소스 */}
         <audio ref={audioRef} controls preload="auto" className="hidden">
           {!isLoading && <source src={data.track_url} type="audio/wav" />}
@@ -187,13 +187,17 @@ export default function MusicBar() {
             height={50}
             className="rounded-sm drop-shadow-sm"
           />
-          <div className="text-md flex flex-col items-center justify-center">
-            <p className="">{data.title}</p>
-            <p className="text-xs text-gray-400">{data.uploader_name}</p>
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-sm lg:text-sm xl:text-base 2xl:text-lg">
+              {data.title}
+            </p>
+            <p className="text-xs text-gray-400 lg:text-xs xl:text-sm 2xl:text-base">
+              {data.uploader_name}
+            </p>
           </div>
         </div>
         {/* 볼륨 조절 */}
-        <div className="flex w-[10%] min-w-[120px] items-center space-x-2">
+        <div className="flex w-[10%] flex-row items-center space-x-2 lg:w-[20%] xl:w-[15%] 2xl:w-[10%]">
           <VolumeDown color="primary" fontSize="medium" />
           <Slider
             aria-label="Volume"
