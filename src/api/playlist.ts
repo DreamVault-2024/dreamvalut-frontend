@@ -59,6 +59,19 @@ export async function fetchFollowPlaylistData() {
   }
 }
 
+// 팔로우한 플레이리스트 데이터 가져오기
+export async function fetchFollowSystemPlaylistData() {
+  try {
+    const response = await api.get(
+      '/playlists/users/followed?type=curated&page=0&size=60', // 하드코딩 수정 필요
+    );
+    return response.data;
+  } catch (error) {
+    console.error('API Fetch Error (followed playlists):', error);
+    throw error;
+  }
+}
+
 // 내 플레이리스트 목록(썸네일) 가져오기
 export async function fetchMyPlaylistThumbnail() {
   try {
