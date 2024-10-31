@@ -141,7 +141,7 @@ export async function getPlaylistMusic(
   size: number,
 ) {
   try {
-    if (playlistType === 'user_created') {
+    if (playlistType === 'user_created' || playlistType === 'curated') {
       const response = await api.get(
         `/playlists/${playlistId}?page=${pageIndex}&size=${size}`,
       );
