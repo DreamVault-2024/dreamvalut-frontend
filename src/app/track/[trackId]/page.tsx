@@ -31,6 +31,7 @@ import { getMusic, disLikes, likes, postStream } from '@/api/music';
 import theme from '@/app/styles/theme';
 import { useSharedAudio } from '@/app/components/audio/Audio';
 import { matchMedia } from '@/util/matchMedia';
+import Link from 'next/link';
 
 export default function MusicPage(props: any) {
   // const [selectedPlaylist, setSelectedPlaylist] = useState<number>(1); // 선택한 플레이리스트
@@ -397,9 +398,10 @@ export default function MusicPage(props: any) {
               <div className="flex h-[40%] w-full flex-col overflow-y-scroll">
                 {data.pages.map((page: any) =>
                   page.content.map((content: any) => (
-                    <li
+                    <Link
                       key={content.track_id}
                       className="flex w-full flex-row space-x-4 self-start p-2 hover:rounded-md hover:bg-[#040404] hover:bg-opacity-30"
+                      href={`/track/${content.track_id}`}
                     >
                       <img
                         src={content.thumbnail_image}
@@ -414,7 +416,7 @@ export default function MusicPage(props: any) {
                           {content.uploader_name}
                         </p>
                       </div>
-                    </li>
+                    </Link>
                   )),
                 )}
                 <div ref={loadMoreRef} className="h-2 w-2 cursor-pointer"></div>
