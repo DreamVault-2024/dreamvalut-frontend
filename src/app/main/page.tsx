@@ -43,7 +43,7 @@ async function Page() {
 
         {/* 다른 유저가 선택한 플레이리스트 */}
         <h1 className="mb-5 mt-14 text-xl font-bold xl:text-2xl 2xl:text-3xl">
-          다른 유저가 선택한 플레이리스트
+          플레이리스트 발견
         </h1>
         <div className="flex h-60 w-full flex-row items-center justify-center overflow-hidden xl:h-64 2xl:h-80">
           <AllPlaylistComponent />
