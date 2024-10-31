@@ -8,13 +8,34 @@ import React, { useState, useEffect, useRef } from 'react';
 import { IconButton } from '@mui/material';
 import BackIcon from '@mui/icons-material/ArrowBackIosNew';
 import ForwardIcon from '@mui/icons-material/ArrowForwardIos';
+import { useQuery } from '@tanstack/react-query';
+import { getSlideContentStyle } from '@/app/styles/slide.ts';
+import { fetchFollowSystemPlaylistData } from '@/api/playlist.ts';
 import theme from '../styles/theme.ts';
+import AlbumCoverUser from '../components/AlbumCover/AlbumCoverUser.tsx';
 
-function systemPlaylistComponent() {
+function FollowPlaylist() {
   const [pageIndex, setPageIndex] = useState<number>(0);
-  // const [data] = useState<any>([]);
+  const musicList = [];
   const divRef = useRef(null);
   const [isVisible, setIsVisible] = useState(true);
+
+  const { isLoading, data } = useQuery({
+    queryKey: ['FollowPlaylistThumbnail'],
+    queryFn: fetchFollowSystemPlaylistData,
+  });
+
+  const handleForwardClick = () => {
+    if (isVisible) {
+      setPageIndex(pageIndex + 1);
+    }
+  };
+
+  const handleBackwardClick = () => {
+    if (pageIndex > 0) {
+      setPageIndex(pageIndex - 1);
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,7 +49,7 @@ function systemPlaylistComponent() {
         });
       },
       {
-        threshold: 0.1, // 10% 가시성을 기준으로 설정
+        threshold: 0.5, // 10% 가시성을 기준으로 설정
       },
     );
 
@@ -43,26 +64,43 @@ function systemPlaylistComponent() {
     };
   }, [divRef.current]);
 
-  const handleForwardClick = () => {
-    if (isVisible) {
-      setPageIndex(pageIndex + 1);
-    }
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  const handleBackwardClick = () => {
-    if (pageIndex > 0) {
-      setPageIndex(pageIndex - 1);
+  if (data.content) {
+    // 데이터가 존재할 때만 PopularMusic 컴포넌트 생성
+    for (let i = 0; i < data.content.length; i += 1) {
+      if (data.content[i]) {
+        // 데이터가 존재하는 경우에만 생성
+        musicList.push(
+          <div key={i}>
+            <AlbumCoverUser
+              image1={data.content[i].thumbnails[0]}
+              image2={data.content[i].thumbnails[1]}
+              image3={data.content[i].thumbnails[2]}
+              title={data.content[i].playlist_name}
+              id={data.content[i].playlist_id}
+            />
+          </div>,
+        );
+      }
     }
-  };
-
+  }
   return (
     <ThemeProvider theme={theme}>
-      <div className="bg-zinc-650 z-30 flex h-full w-10 flex-row items-center justify-center">
+      <div className="bg-zinc-650 z-30 flex h-full w-10 items-center justify-center first-letter:flex-row">
         <IconButton onClick={handleBackwardClick}>
           {pageIndex !== 0 && <BackIcon color="primary" fontSize="large" />}
         </IconButton>
       </div>
-      <div className="flex h-full w-10/12 flex-row items-center justify-start rounded-2xl">
+      <div
+        className={
+          'slide-content flex h-full w-full flex-col flex-wrap items-start justify-center'
+        }
+        style={getSlideContentStyle(pageIndex, 3)}
+      >
+        {musicList}
         <div ref={divRef} />
       </div>
       <div className="bg-zinc-650 z-30 flex h-full w-10 flex-row items-center justify-center">
@@ -74,4 +112,4 @@ function systemPlaylistComponent() {
   );
 }
 
-export default systemPlaylistComponent;
+export default FollowPlaylist;

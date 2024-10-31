@@ -28,7 +28,7 @@ import InfiniteScroll from '@/app/components/InfiniteScroll.tsx';
 import { Music } from '@/types/music.ts';
 import { Playlist, playlistParam } from '@/types/playlist.ts';
 import Image from 'next/image';
-import PlayButton from './PlayButton.tsx';
+// import PlayButton from './PlayButton.tsx';
 import MusicElement from './MusicElement.tsx';
 
 function page(props: any) {
@@ -125,10 +125,11 @@ function page(props: any) {
         setPlaylistName(`# ${data.pages['0'].tag_name}`);
       } else if (playlistType === 'genre') {
         setPlaylistName(data.pages['0'].genre_name);
+      } else if (playlistType === 'curated') {
+        setPlaylistName(data.pages['0'].playlist_name);
       } else {
         setPlaylistName(data.pages['0'].playlist_name);
       }
-
       setIsFollow(data.pages['0'].is_follow);
     }
   }, [data, playlistType]);
@@ -216,7 +217,7 @@ function page(props: any) {
               </button>
             ))}
 
-          <PlayButton playlistId={playlistId} />
+          {/* <PlayButton playlistId={playlistId} /> */}
 
           {/* 플레이리스트 생성자 일 경우 보여주는 메뉴 */}
           {data.pages['0'].is_owner && (

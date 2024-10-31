@@ -16,9 +16,9 @@ import AlbumCoverUser from '../components/AlbumCover/AlbumCoverUser.tsx';
 
 function FollowPlaylist() {
   const [pageIndex, setPageIndex] = useState<number>(0);
-  const musicList = [];
+  const musicList: any[] = []; // any 타입 수정 필요
   const divRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const { isLoading, data } = useQuery({
     queryKey: ['FollowPlaylistThumbnail'],
@@ -72,8 +72,13 @@ function FollowPlaylist() {
     // 데이터가 존재할 때만 PopularMusic 컴포넌트 생성
     for (let i = 0; i < data.content.length; i += 1) {
       if (data.content[i]) {
-        // 데이터가 존재하는 경우에만 생성
-        musicList.push(
+        // 랜덤 인덱스를 생성
+        const randomIndex = Math.floor(Math.random() * (musicList.length + 1));
+
+        // 랜덤 위치에 요소를 삽입
+        musicList.splice(
+          randomIndex,
+          0,
           <div key={i}>
             <AlbumCoverUser
               image1={data.content[i].thumbnails[0]}
