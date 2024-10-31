@@ -42,7 +42,7 @@ export default function MusicPage(props: any) {
   const id = open2 ? 'simple-popover' : undefined;
   const [showThumbnail, setShowThumbnail] = useState(true);
   const [showPlaylist, setShowPlaylist] = useState(true);
-  const renderSize = 10; // 한 번에 렌더링할 음악 수
+  const renderSize = 20; // 한 번에 렌더링할 음악 수
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const {
     audioRef,
@@ -402,6 +402,7 @@ export default function MusicPage(props: any) {
                       key={content.track_id}
                       className="flex w-full flex-row space-x-4 self-start p-2 hover:rounded-md hover:bg-[#040404] hover:bg-opacity-30"
                       href={`/track/${content.track_id}`}
+                      onClick={() => setCurrentTime(0)}
                     >
                       <img
                         src={content.thumbnail_image}
