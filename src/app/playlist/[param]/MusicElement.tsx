@@ -17,6 +17,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import Swal from 'sweetalert2';
 import { deleteTrack } from '@/api/playlist.ts';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import theme from '../../styles/theme.ts';
 
 export default function MusicElement({
@@ -28,6 +29,7 @@ export default function MusicElement({
   playlistId,
   isEdit,
 }: MusicElementProps) {
+  const router = useRouter();
   const [isLikedStore, setIsLikedStore] = useState(isLiked);
   const [deleteAnimation, setDeleteAnimation] = useState(false);
   const [isTrack, setIsTrack] = useState(true);
@@ -154,7 +156,11 @@ export default function MusicElement({
           </div>
           <div className="flex w-24 items-center justify-center">
             <IconButton>
-              <PlayArrowIcon color="primary" fontSize="inherit" />
+              <PlayArrowIcon
+                color="primary"
+                fontSize="inherit"
+                onClick={() => router.push(`/track/${trackId}`)}
+              />
             </IconButton>
           </div>
         </div>
